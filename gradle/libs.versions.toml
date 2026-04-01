@@ -16,11 +16,11 @@ hiltNavigation = "1.2.0"
 ksp = "2.0.21-1.0.26"
 navigationTesting = "2.9.6"
 kotlinxSerializationJson = "1.6.2"
-ktorClientAuth = "3.4.2"
-ktorClientCio = "3.4.2"
-ktorClientContentNegotiation = "3.4.2"
-ktorClientCore = "3.4.2"
-ktorSerializationKotlinxJson = "3.4.2"
+ktorClientAuth = "2.3.7"
+ktorClientCio = "2.3.7"
+ktorClientContentNegotiation = "2.3.7"
+ktorClientCore = "2.3.7"
+ktorSerializationKotlinxJson = "2.3.7"
 
 
 [libraries]
