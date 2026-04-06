@@ -27,6 +27,7 @@
       </SelectionState>
       <SelectionState runConfigName="getProjects()">
         <option name="selectionMode" value="DROPDOWN" />
+        <DialogSelection />
       </SelectionState>
     </selectionStates>
   </component>

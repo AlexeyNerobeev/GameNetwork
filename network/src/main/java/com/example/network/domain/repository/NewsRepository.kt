@@ -6,5 +6,5 @@ import com.example.network.domain.model.ResponseNews
 //Алексей
 //репозиторий новостей
 interface NewsRepository {
-    suspend fun getNews(): ResponseNews
+    suspend fun getNews(): Result<ResponseNews>
 }

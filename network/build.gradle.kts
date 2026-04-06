@@ -55,6 +55,14 @@ dependencies {
     // Serialization
     implementation(libs.kotlinx.serialization.json)
 
+    testImplementation(libs.ktor.client.core)
+    testImplementation(libs.ktor.client.cio)
+    testImplementation(libs.ktor.client.content.negotiation)
+    testImplementation(libs.ktor.serialization.kotlinx.json)
+
+    androidTestImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

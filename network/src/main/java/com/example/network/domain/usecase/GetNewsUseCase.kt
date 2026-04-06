@@ -7,7 +7,7 @@ import com.example.network.domain.repository.NewsRepository
 //Алексей
 //usecase для получения новостей
 class GetNewsUseCase(private val newsRepository: NewsRepository) {
-    suspend operator fun invoke(): ResponseNews{
+    suspend operator fun invoke(): Result<ResponseNews>{
         return newsRepository.getNews()
     }
 }

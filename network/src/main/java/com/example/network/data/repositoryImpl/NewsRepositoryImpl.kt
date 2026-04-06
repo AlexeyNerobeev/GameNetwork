@@ -20,16 +20,16 @@ import kotlinx.coroutines.withContext
 class NewsRepositoryImpl(
     private val httpClient: HttpClient
 ): NewsRepository {
-    override suspend fun getNews(): ResponseNews {
+    override suspend fun getNews(): Result<ResponseNews> {
         return withContext(Dispatchers.IO) {
             try {
                 val request = httpClient.get(HttpConstants.GET_NEWS)
                 val response = request.body<ResponsesNewsDto>().toModel()
                 Log.d("getNews", request.status.toString() + response.toString())
-                return@withContext response
+                return@withContext Result.success(response)
             } catch (e: Exception) {
                 Log.e("getNews", e.message.toString())
-                return@withContext ResponseNews()
+                return@withContext Result.failure(e)
             }
         }
     }

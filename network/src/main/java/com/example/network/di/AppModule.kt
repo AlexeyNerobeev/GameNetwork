@@ -44,7 +44,10 @@ import kotlinx.serialization.json.Json
 class AppModule {
 
     @Provides
-    fun provideHttpClient(currentSessionRepository: CurrentSessionRepository): HttpClient {
+    fun provideHttpClient(
+        currentSessionRepository: CurrentSessionRepository,
+        baseUrl: String = HttpConstants.BASE_URL
+    ): HttpClient {
         return HttpClient(CIO) {
             install(ContentNegotiation) {
                 json(Json {
@@ -54,85 +57,90 @@ class AppModule {
                 })
             }
             defaultRequest {
-                header(key = "Authorization",
-                    value = "Bearer ${currentSessionRepository.loadToken()}")
-                url(HttpConstants.BASE_URL)
+                header(
+                    key = "Authorization",
+                    value = "Bearer ${currentSessionRepository.loadToken()}"
+                )
+                url(baseUrl)
             }
         }
     }
 
     @Provides
-    fun provideAuthRepository(httpClient: HttpClient, saveTokenUseCase: SaveTokenUseCase): AuthRepository{
+    fun provideAuthRepository(
+        httpClient: HttpClient,
+        saveTokenUseCase: SaveTokenUseCase
+    ): AuthRepository {
         return AuthRepositoryImpl(httpClient, saveTokenUseCase)
     }
 
     @Provides
-    fun provideCurrentSessionRepository(@ApplicationContext context: Context): CurrentSessionRepository{
+    fun provideCurrentSessionRepository(@ApplicationContext context: Context): CurrentSessionRepository {
         return CurrentSessionRepositoryImpl(context)
     }
 
     @Provides
-    fun provideLoginUseCase(authRepository: AuthRepository): LoginUseCase{
+    fun provideLoginUseCase(authRepository: AuthRepository): LoginUseCase {
         return LoginUseCase(authRepository)
     }
 
     @Provides
-    fun provideRegistrationUseCase(authRepository: AuthRepository): RegistrationUseCase{
+    fun provideRegistrationUseCase(authRepository: AuthRepository): RegistrationUseCase {
         return RegistrationUseCase(authRepository)
     }
 
     @Provides
-    fun provideSaveTokenUseCase(currentSessionRepository: CurrentSessionRepository): SaveTokenUseCase{
+    fun provideSaveTokenUseCase(currentSessionRepository: CurrentSessionRepository): SaveTokenUseCase {
         return SaveTokenUseCase(currentSessionRepository)
     }
 
     @Provides
-    fun provideUserRepository(httpClient: HttpClient): UserRepository{
+    fun provideUserRepository(httpClient: HttpClient): UserRepository {
         return UserRepositoryImpl(httpClient)
     }
 
     @Provides
-    fun provideGetUserUseCase(userRepository: UserRepository): GetUserUseCase{
+    fun provideGetUserUseCase(userRepository: UserRepository): GetUserUseCase {
         return GetUserUseCase(userRepository)
     }
 
     @Provides
-    fun provideUpdateUserUseCase(userRepository: UserRepository): UpdateUserUseCase{
+    fun provideUpdateUserUseCase(userRepository: UserRepository): UpdateUserUseCase {
         return UpdateUserUseCase(userRepository)
     }
 
     @Provides
-    fun provideNewsRepository(httpClient: HttpClient): NewsRepository{
+    fun provideNewsRepository(httpClient: HttpClient): NewsRepository {
         return NewsRepositoryImpl(httpClient)
     }
 
     @Provides
-    fun provideGetNewsUseCase(newsRepository: NewsRepository): GetNewsUseCase{
+    fun provideGetNewsUseCase(newsRepository: NewsRepository): GetNewsUseCase {
         return GetNewsUseCase(newsRepository)
     }
 
     @Provides
-    fun provideProductsRepository(httpClient: HttpClient): ProductsRepository{
+    fun provideProductsRepository(httpClient: HttpClient): ProductsRepository {
         return ProductsRepositoryImpl(httpClient)
     }
 
     @Provides
-    fun provideGetProductsUseCase(productsRepository: ProductsRepository): GetProductsUseCase{
+    fun provideGetProductsUseCase(productsRepository: ProductsRepository): GetProductsUseCase {
         return GetProductsUseCase(productsRepository)
     }
 
     @Provides
-    fun provideGetProductInfo(productsRepository: ProductsRepository): GetProductInfoUseCase{
+    fun provideGetProductInfo(productsRepository: ProductsRepository): GetProductInfoUseCase {
         return GetProductInfoUseCase(productsRepository)
     }
 
     @Provides
-    fun provideProjectRepository(httpClient: HttpClient): ProjectRepository{
+    fun provideProjectRepository(httpClient: HttpClient): ProjectRepository {
         return ProjectRepositoryImpl(httpClient)
     }
 
     @Provides
-    fun provideGetProjectsUseCase(projectRepository: ProjectRepository): GetProjectsUseCase{
+    fun provideGetProjectsUseCase(projectRepository: ProjectRepository): GetProjectsUseCase {
         return GetProjectsUseCase(projectRepository)
     }
 }
